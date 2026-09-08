@@ -1,0 +1,11 @@
+def bottleDeposit():
+    overLitre = (input("Enter number of bottles over a litre (Type No if there is none): "))
+    underLitre = (input("Enter number of bottles under a litre (Type No if there is none): "))
+    if type(overLitre) == "String":
+        pass
+    else:
+        print(f"The refund for {overLitre} bottles is {float(int(overLitre) * 0.25):.2f}$.")
+    if type(underLitre) == "String":
+        pass
+    else:
+        print(f"The refund for {underLitre} bottles is {float(int(underLitre) * 0.10):.2f}$.")

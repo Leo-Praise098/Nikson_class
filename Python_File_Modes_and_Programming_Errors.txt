@@ -1,0 +1,186 @@
+PYTHON FILE OPENING MODES AND PROGRAMMING ERRORS
+=================================================
+
+OPENING A FILE
+--------------
+Basic pattern:
+
+    file = open("filename.txt", "mode")
+
+It is safer to use 'with' because it closes the file automatically:
+
+    with open("filename.txt", "r") as file:
+        content = file.read()
+
+
+FILE MODES
+----------
+
+r  Read mode (default)
+   - Opens an existing file for reading.
+   - Gives an error if the file does not exist.
+   - You cannot write to the file.
+
+w  Write mode
+   - Opens a file for writing.
+   - Creates the file if it does not exist.
+   - Erases (overwrites) all existing contents if the file already exists.
+
+a  Append mode
+   - Opens a file for writing at the end of the file.
+   - Creates the file if it does not exist.
+   - Keeps existing contents and adds new contents after them.
+
+x  Create mode (exclusive creation)
+   - Creates a new file for writing.
+   - Gives an error if the file already exists.
+   - Useful when you do not want to overwrite an existing file by mistake.
+
+t  Text mode (default)
+   - The file is treated as text (strings).
+   - Usually written as rt, wt, or at, but the t is normally omitted.
+
+b  Binary mode
+   - The file is treated as bytes instead of text.
+   - Used for files such as images, audio, videos, PDFs, and other non-text files.
+
++  Update mode: allows both reading and writing.
+   - It must be combined with r, w, a, or x.
+
+
+COMMON COMBINATIONS
+-------------------
+
+Mode   Meaning
+----   ------------------------------------------------------------
+r      Read text. File must already exist.
+rt     Read text. Same as r.
+rb     Read binary. File must already exist.
+
+w      Write text. Creates a file or overwrites an existing one.
+wt     Write text. Same as w.
+wb     Write binary. Creates a file or overwrites an existing one.
+
+a      Append text. Creates a file if needed; writes at the end.
+at     Append text. Same as a.
+ab     Append binary. Creates a file if needed; writes bytes at end.
+
+x      Create a new text file. Fails if the file already exists.
+xt     Create a new text file. Same as x.
+xb     Create a new binary file. Fails if the file already exists.
+
+r+     Read and write. File must already exist; does not erase it.
+r+b    Read and write binary. Same as rb+.
+rb+    Read and write binary. Same as r+b.
+
+w+     Read and write. Creates a file or erases an existing one.
+w+b    Read and write binary. Same as wb+.
+wb+    Read and write binary. Same as w+b.
+
+a+     Read and append. Creates a file if needed; writes go to the end.
+a+b    Read and append binary. Same as ab+.
+ab+    Read and append binary. Same as a+b.
+
+x+     Create a new file for reading and writing. Fails if it exists.
+x+b    Create a new binary file for reading and writing. Same as xb+.
+xb+    Create a new binary file for reading and writing. Same as x+b.
+
+NOTE: In combinations such as rb+ and r+b, the order of b and + does not
+change the meaning. Text mode is the default, so r, w, a, x, r+, w+, a+,
+and x+ are text modes unless b is included.
+
+
+QUICK EXAMPLES
+--------------
+
+Read a text file:
+
+    with open("notes.txt", "r") as file:
+        print(file.read())
+
+Write new text (overwrites old content):
+
+    with open("notes.txt", "w") as file:
+        file.write("Hello")
+
+Add text without removing old content:
+
+    with open("notes.txt", "a") as file:
+        file.write("\nAnother note")
+
+Read an image in binary mode:
+
+    with open("photo.jpg", "rb") as file:
+        data = file.read()
+
+
+PROGRAMMING ERRORS: THE KEY DIFFERENCES
+---------------------------------------
+
+1. SYNTAX ERROR
+   A syntax error happens when code breaks the grammar rules of Python.
+   Python normally finds it before the program starts running.
+
+   Example:
+
+       if age >= 18
+           print("Adult")
+
+   The colon (:) after the condition is missing.
+
+   Correct version:
+
+       if age >= 18:
+           print("Adult")
+
+   Remember: Syntax error = Is the code written correctly?
+
+
+2. SEMANTIC ERROR
+   A semantic error happens when code is written correctly and runs, but it
+   does not do what you intended. The logic or meaning is wrong.
+
+   Example:
+
+       length = 10
+       width = 5
+       area = length + width
+
+   The program runs, but the area of a rectangle should be calculated with:
+
+       area = length * width
+
+   Remember: Semantic error = Does the code do what I intended?
+
+
+3. EXCEPTION
+   An exception is a problem that occurs while the program is running.
+   The syntax can be correct, but Python cannot complete an operation.
+
+   Examples:
+
+       10 / 0                  -> ZeroDivisionError
+       numbers = [10, 20, 30]
+       print(numbers[5])       -> IndexError
+       int("hello")            -> ValueError
+
+   Exceptions can be handled with try and except:
+
+       try:
+           number = int(input("Enter a number: "))
+           result = 10 / number
+           print(result)
+       except ValueError:
+           print("Please enter a valid number.")
+       except ZeroDivisionError:
+           print("You cannot divide by zero.")
+
+   Remember: Exception = Did something go wrong while the program was running?
+
+
+SUMMARY
+-------
+
+Syntax error:    Code violates Python's grammar; found before it runs.
+Semantic error:  Code runs, but produces the wrong result.
+Exception:       A problem occurs while valid code is running.
