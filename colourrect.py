@@ -5,7 +5,7 @@ tk = Tk()
 canvas = Canvas(tk, width = 400, height = 400)
 canvas.pack()
 
-
+"""
 def random_rectangle(width, height, colour):
     x1 = random.randrange(width)
     y1 = random.randrange(height)
@@ -15,7 +15,8 @@ def random_rectangle(width, height, colour):
 
 for i in range(0, 100000):
     colour = "#" + "".join(random.choices("0123456789ABCDEF", k=6))
-    random_rectangle(100, 200, colour)
+    random_rectangle(100, 200, colour)"""
 
 c = colorchooser.askcolor()
 print(c)
+canvas.create_arc(10, 10, 200, 100, extent = 100, style = ARC)
