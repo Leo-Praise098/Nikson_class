@@ -1,5 +1,4 @@
-def check_strength():
-    password = input("Enter your password: ")
+def check_strength(password):
     strength = 0
 
     # Check length
@@ -37,6 +36,7 @@ def check_strength():
     else:
         strength -= 1
         print("Password should contain at least one special character.")
+    
 
     # Evaluate strength
     if strength >= 4:
@@ -45,6 +45,7 @@ def check_strength():
         print("Your password is moderate.")
     else:
         print("Your password is weak.")
+    return strength
 
 def generate_password(length=12, include_symbols=True):
     from random import choice as ch
@@ -76,7 +77,8 @@ def main():
             continue
         
         if choice == 1:
-            check_strength()
+            password = input("Enter your password: ")
+            check_strength(password)
         elif choice == 2:
             length = int(input("Enter desired password length (minimum 8): "))
             include_symbols = input("Include special characters? (y/n): ").lower() == 'y'
